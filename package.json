@@ -11,8 +11,10 @@
   "license": "ISC",
   "dependencies": {
     "@firebase/storage": "^0.12.2",
+    "cors": "^2.8.5",
     "express": "^4.18.3",
     "firebase": "^10.9.0",
-    "firebase-admin": "^12.0.0"
+    "firebase-admin": "^12.0.0",
+    "node-fetch": "^3.3.2"
   }
 }
