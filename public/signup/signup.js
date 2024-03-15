@@ -1,5 +1,9 @@
 import { auth, db, createUserWithEmailAndPassword, doc, setDoc, serverTimestamp } from '../../src/firebase/firebase.js';
 
+document.getElementById('signin').addEventListener('click', () => {
+    window.location = '../signin/signin.html';
+});
+
 document.getElementById('signup-form').addEventListener('submit', (e) => {
     e.preventDefault(); // Prevent the default form submission
 
