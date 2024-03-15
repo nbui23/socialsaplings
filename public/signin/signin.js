@@ -1,5 +1,9 @@
 import { auth, signInWithEmailAndPassword } from '../../src/firebase/firebase.js';
 
+document.getElementById('signup').addEventListener('click', () => {
+    window.location = '../signup/signup.html';
+});
+
 document.getElementById('signin-form').addEventListener('submit', (e) => {
     e.preventDefault();
 
