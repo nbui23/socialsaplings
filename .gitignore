@@ -5,4 +5,3 @@ config/
 Thumbs.db
 dist/
 .vscode/
-.idea/

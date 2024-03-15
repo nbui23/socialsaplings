@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Signup</title>
+</head>
+<body>
+    <h2>Signup</h2>
+    <form id="signup-form">
+        <input type="text" id="username" placeholder="Username" required /><br/>
+        <input type="email" id="user-email" placeholder="Email" required /><br/>
+        <input type="password" id="user-password" placeholder="Password" required /><br/>
+        <button type="submit">Sign Up</button>
+    </form>
+
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
+    <script type="module" src="../src/firebase/firebase.js"></script>
+    <script type="module" src="signup.js"></script>
+
+</body>
+</html>
