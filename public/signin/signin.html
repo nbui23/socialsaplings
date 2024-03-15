@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In</title>
     <link rel="stylesheet" href="styles.css">
+
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script type="module" src="signin.js"></script>
 </head>
 <body>
     <div class="session">
@@ -21,7 +24,7 @@
             <p>Welcome back! Log in to leaf through your feed!</p>
             <div class="floating-label">
                 <input placeholder="Email" type="email" name="email" id="user-email" autocomplete="off" required>
-                <label for="email">Email:</label>
+                <label for="user-email">Email:</label>
                 <div class="icon">
                     <?xml version="1.0" encoding="UTF-8"?>
                     <svg enable-background="new 0 0 100 100" version="1.1" viewBox="0 0 100 100" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
@@ -39,7 +42,7 @@
             <div class="floating-label">
                 <input placeholder="Password" type="password" name="password" id="user-password" autocomplete="off" required>
 
-                <label for="password">Password:</label>
+                <label for="user-password">Password:</label>
                 <div class="icon">
                         
                     <?xml version="1.0" encoding="UTF-8"?>
@@ -60,8 +63,7 @@
             <a id="signup" class="discrete" target="_blank">Sign Up</a>
         </form>
     </div>
-
-    <script type="module" src="../../src/firebase/firebase.js"></script>
-    <script type="module" src="signin.js"></script>
+    <script src="/bundle.js"></script>
+    <script type="module" src="../../src/firebase/firebase.js" defer></script>
 </body>
 </html>

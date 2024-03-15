@@ -16,6 +16,10 @@ document.getElementById('signin-form').addEventListener('submit', (e) => {
             console.log("User signed in: ", user);
         })
         .catch((error) => {
-            console.error("Error signing in:", error);
+            if (error.code === 'auth/invalid-login-credentials') {
+                console.error("Invalid login credentials. Please check your email and password.");
+            } else {
+                console.error("Error signing in:", error);
+            }
         });
 });
