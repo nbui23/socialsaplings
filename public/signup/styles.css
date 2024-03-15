@@ -215,12 +215,12 @@ input:focus {
 }
 
 .left {
-  width: 290px;
+  width: 340px;
   height: auto;
   min-height: 100%;
   position: relative;
   background-image: url("../assets/strip-logo.png");
-  background-size: contain;
+  background-size: cover;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
 }
