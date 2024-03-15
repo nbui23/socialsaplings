@@ -1,4 +1,4 @@
-import { auth, signInWithEmailAndPassword } from '../src/firebase/firebase.js';
+import { auth, signInWithEmailAndPassword } from '../../src/firebase/firebase.js';
 
 document.getElementById('signin-form').addEventListener('submit', (e) => {
     e.preventDefault();

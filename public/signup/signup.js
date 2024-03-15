@@ -1,4 +1,4 @@
-import { auth, db, createUserWithEmailAndPassword, doc, setDoc, serverTimestamp } from '../src/firebase/firebase.js';
+import { auth, db, createUserWithEmailAndPassword, doc, setDoc, serverTimestamp } from '../../src/firebase/firebase.js';
 
 document.getElementById('signup-form').addEventListener('submit', (e) => {
     e.preventDefault(); // Prevent the default form submission

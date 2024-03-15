@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soil Assessment Tool</title>
+</head>
+<body>
+    <h2>Soil Assessment Tool</h2>
+    <form id="soil-assessment-form">
+        <label for="soil-type">Soil Type:</label>
+        <select id="soil-type" required>
+            <option value="">--Select--</option>
+            <option value="clay">Clay</option>
+            <option value="sandy">Sandy</option>
+            <option value="loamy">Loamy</option>
+            <!-- Add other soil types as needed -->
+        </select><br/>
+
+        <label for="ph-level">pH Level:</label>
+        <input type="number" id="ph-level" step="0.1" required /><br/>
+
+        <label for="moisture">Moisture:</label>
+        <select id="moisture" required>
+            <option value="">--Select--</option>
+            <option value="dry">Dry</option>
+            <option value="moist">Moist</option>
+            <option value="wet">Wet</option>
+        </select><br/>
+
+        <!-- Add other inputs as needed -->
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <!-- Results Section -->
+    <div id="results"></div>
+
+    <script src="soil-assessment.js"></script>
+</body>
+</html>
