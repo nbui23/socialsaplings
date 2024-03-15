@@ -62,7 +62,7 @@ let treeSpecies = [
     name: "Sugar Maple",
     idealSoilClasses: ["Cambisols"],
     idealClimateClasses: ["temperate"],
-    idealTopographyClasses: ["medium"],
+    idealTopographyClasses: ["low", "medium"],
     idealBiodiversityClasses: ["high"]
   },
   {

@@ -31,7 +31,7 @@ app.get('/signup', function(req, res) {
   res.sendFile(path.join(__dirname, '../public/signup/signup.html'));
 });
 
-app.use('/treeRecommendation', treeRecommendationRouter);
+app.use('/api/treeRecommendation', treeRecommendationRouter);
 
 app.use(express.static(path.join(__dirname, '../public')));
 
