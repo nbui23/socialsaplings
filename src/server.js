@@ -45,6 +45,10 @@ app.get('/api/maps-key', (req, res) => {
   res.json({ key: process.env.MAPS_API_KEY });
 });
 
+app.get('/api/weather-key', (req, res) => {
+  res.json({ key: process.env.WEATHER_API_KEY });
+});
+
 app.use(express.static(path.join(__dirname, '../public')));
 
 app.use(express.static('dist'));

@@ -60,7 +60,7 @@ let treeSpecies = [
   {
     name: "Sugar Maple",
     idealSoilClasses: ["Cambisols"],
-    idealClimateClasses: ["temperate"],
+    idealClimateClasses: ["cold", "temperate"],
     idealTopographyClasses: ["low", "medium"],
     idealBiodiversityClasses: ["high"]
   },
@@ -69,12 +69,19 @@ let treeSpecies = [
     idealSoilClasses: ["Cambisols"],
     idealClimateClasses: ["cold", "temperate"],
     idealTopographyClasses: ["low", "medium"],
-    idealBiodiversityClasses: ["medium"]
+    idealBiodiversityClasses: ["medium", "high"]
   },
   {
     name: "Northern Red Oak",
     idealSoilClasses: ["Cambisols"],
-    idealClimateClasses: ["temperate"],
+    idealClimateClasses: ["temperate", "hot"],
+    idealTopographyClasses: ["low", "medium"],
+    idealBiodiversityClasses: ["medium", "high"]
+  },
+  {
+    name: "Eastern Hemlock",
+    idealSoilClasses: ["Cambisols"],
+    idealClimateClasses: ["temperate", "hot"],
     idealTopographyClasses: ["low", "medium"],
     idealBiodiversityClasses: ["medium", "high"]
   }  

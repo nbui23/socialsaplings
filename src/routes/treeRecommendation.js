@@ -1,9 +1,16 @@
 import express from 'express';
 import fetch from 'node-fetch';
 import { config } from 'dotenv';
+import { fileURLToPath } from 'url';
+import path from 'path';
+import { dirname } from 'path';
 
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, getDocs } from 'firebase/firestore'; 
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 
 const firebaseConfig = {
     apiKey: "AIzaSyCxuxa5bFTXVYF_NRH9HrRV_mebUzQ05OM",
@@ -19,7 +26,9 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 const router = express.Router();
-config();
+
+config({ path: path.resolve(__dirname, '../../config/.env') });
+
 const weatherKey = process.env.WEATHER_API_KEY;
 
 async function getTreeSpecies() {
@@ -96,22 +105,33 @@ function classifyBiodiversityData(biodiversityData) {
     return 'high';
 }
 
-// async function matchTreesToConditions(soilClass, climateClass, topographyClass, biodiversityClass) {
-async function matchTreesToConditions(soilClass, topographyClass, biodiversityClass) {
+async function matchTreesToConditions(soilClass, climateClass, topographyClass, biodiversityClass) {
     soilClass = soilClass.trim().toLowerCase();
+    climateClass = climateClass.trim().toLowerCase();
     topographyClass = topographyClass.trim().toLowerCase();
     biodiversityClass = biodiversityClass.trim().toLowerCase();
+
+    // console.log(`Soil Class: ${soilClass}`);
+    // console.log(`Climate Class: ${climateClass}`);
+    // console.log(`Topography Class: ${topographyClass}`);
+    // console.log(`Biodiversity Class: ${biodiversityClass}`);
+
     const treeSpecies = await getTreeSpecies();
     const matchingTrees = treeSpecies.filter(tree => {
         const soilMatch = tree.idealSoilClasses.map(value => value.toLowerCase()).includes(soilClass);
+        const climateMatch = tree.idealClimateClasses.map(value => value.toLowerCase()).includes(climateClass);
         const topographyMatch = tree.idealTopographyClasses.map(value => value.toLowerCase()).includes(topographyClass);
         const biodiversityMatch = tree.idealBiodiversityClasses.map(value => value.toLowerCase()).includes(biodiversityClass);
 
-        return soilMatch && topographyMatch && biodiversityMatch;
+        // console.log(`Soil Match for ${tree.name}: ${soilMatch}`);
+        // console.log(`Climate Match for ${tree.name}: ${climateMatch}`);
+        // console.log(`Topography Match for ${tree.name}: ${topographyMatch}`);
+        // console.log(`Biodiversity Match for ${tree.name}: ${biodiversityMatch}`);
+
+        return soilMatch && climateMatch && topographyMatch && biodiversityMatch;
     });
     return matchingTrees.map(tree => tree.name);
 }
-export { router as treeRecommendationRouter };
 
 router.post('/', async (req, res) => {
     const { lat, lon } = req.body;
@@ -125,17 +145,16 @@ router.post('/', async (req, res) => {
 
     try {
         const soilData = await fetchSoilClass(lat, lon);
-        // const climateData = await fetchClimateData(lat, lon);
+        const climateData = await fetchClimateData(lat, lon);
         const topographyData = await fetchTopographyData(lat, lon);
         const biodiversityData = await fetchBiodiversityData(lat, lon);
 
         const soilClass = classifySoilData(soilData);
-        // const climateClass = classifyClimateData(climateData);
+        const climateClass = classifyClimateData(climateData);
         const topographyClass = classifyTopographyData(topographyData);
         const biodiversityClass = classifyBiodiversityData(biodiversityData);
 
-        // const treeRecommendation = await matchTreesToConditions(soilClass, climateClass, topographyClass, biodiversityClass);
-        const treeRecommendation = await matchTreesToConditions(soilClass, topographyClass, biodiversityClass)
+        const treeRecommendation = await matchTreesToConditions(soilClass, climateClass, topographyClass, biodiversityClass);
 
         res.json({
             success: true,
@@ -150,3 +169,5 @@ router.post('/', async (req, res) => {
         });
     }
 });
+
+export { router as treeRecommendationRouter };
