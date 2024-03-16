@@ -1,43 +1,125 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Tree Map</title>
-    <style>
-        #map {
-            height: 100%; 
-            width: 100%;
-        }
-    </style>
-</head>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <title>Social Saplings</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="../assets/css/fontawesome.css">
+    <link rel="stylesheet" href="../assets/css/templatemo-cyborg-gaming.css">
+    <link rel="stylesheet" href="../assets/css/owl.css">
+    <link rel="stylesheet" href="../assets/css/animate.css">
+    <link rel="stylesheet"href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
+<!--
+
+TemplateMo 579 Cyborg Gaming
+
+https://templatemo.com/tm-579-cyborg-gaming
+
+-->
+  </head>
+
 <body>
-    <button class="button" id="personal-trees">Personal Trees</button>
-    <button class="button" id="all-trees">All Trees</button>
-    <button class="button" id="plant-tree">Plant Tree</button>
     <div id="map"></div>
-    <div id="plantTreeModal" class="modal">
-        <div class="modal-content">
-            <h2>Plant a Tree</h2>
-            <form id="plantTreeForm">
-                <label for="treeSpecies">Tree Species:</label>
-                <select id="treeSpecies"></select>
-            </form>
-            <button id="plantTreeSubmit">Plant Tree</button>
+
+  <!-- ***** Preloader Start ***** -->
+  <div id="js-preloader" class="js-preloader">
+    <div class="preloader-inner">
+      <span class="dot"></span>
+      <div class="dots">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </div>
+  <!-- ***** Preloader End ***** -->
+
+  <!-- ***** Header Area Start ***** -->
+  <header class="header-area header-sticky">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav class="main-nav">
+                    <!-- ***** Logo Start ***** -->
+                    <a href="home.html" class="logo">
+                        <img src="../assets/horizontal-strip-logo.png" alt="">
+                    </a>
+                    <ul class="nav">
+                      <div class="main-button">
+                        <a href="../home/home.html" class="active dgreen">Home</a>
+                        <a href="../treeRecommendation/treeRecommendation.html" class="active dgreen">Tree Recommendation</a>
+                        <a href="../resources/resources.html" class="active dgreen">Resources</a>
+                        <a href="../profile/profile.html" class="active dgreen">Profile </a>
+                        <a href="../signin/signin.html" class="signOut">Sign Out</a>
+                      </div>
+                    </ul>      
+                    <a class='menu-trigger'>
+                        <span>Menu</span>
+                    </a>
+                    <!-- ***** Menu End ***** -->
+                </nav>
+            </div>
         </div>
     </div>
-    <!-- <script src="https://unpkg.com/@google/markerclustererplus"></script> -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-    <script src="treeMap/treeMap.js"></script>
+  </header>
+  <!-- ***** Header Area End ***** -->
 
-</body>
-<style type="text/css">
-    #map {
-        height: 100%;
-    }
-    html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-    }
-</style>
+  <div class="container">
+    
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="page-content empty">
+          <!-- ***** Gaming Library Start ***** -->
+          <div class="item treemapButtonCont">
+            <div class="main-button treeButton">
+              <a id="personal-trees">Personal Trees<i class="fa fa-person"></i></a>
+                <a id="all-trees">All Trees<i class="fa fa-tree"></i></a>
+                <a id="plant-tree">Plant Tree<i class="fa fa-leaf"></i></a>
+            </div>
+        </div>
+        <div id="plantTreeModal" class="modal">
+            <div class="modal-content">
+                <h4 class="dgreen">Plant a Tree</h2>
+                <form id="plantTreeForm">
+                    <label for="treeSpecies">Tree Species:</label>
+                    <select id="treeSpecies"></select>
+                </form>
+                <div class="main-button center">
+                    <a id="plantTreeSubmit">Plant Tree</a>
+                    <a id="plantTreeCancel" class="cancel">Cancel</a>
+                </div>
+            </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="../vendor/jquery/jquery.min.js"></script>
+  <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+
+  <script src="../assets/js/isotope.min.js"></script>
+  <script src="../assets/js/owl-carousel.js"></script>
+  <script src="../assets/js/tabs.js"></script>
+  <script src="../assets/js/popup.js"></script>
+  <script src="../assets/js/custom.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+  <script src="treeMap.js"></script>
+
+
+  </body>
+
 </html>
+

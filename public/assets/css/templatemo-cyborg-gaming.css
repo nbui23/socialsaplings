@@ -62,6 +62,38 @@ html[xmlns] .clearfix {
   height: 1%;
 }
 
+.treemapButtonCont{
+  position: absolute;
+  /*  bottom left */
+  bottom: 50px;
+  left: 90px;
+}
+.left{
+ text-align: left !important;
+
+}
+#map {
+  height: 65% !important;
+  position: absolute !important;
+  /* center horizontally */
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 20%;
+  width: 90% !important;
+  border-radius: 23px;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.15);
+}
+
+.signOut{
+  background-color: #eef3f1 !important;
+  color: #073c1e !important;
+}
+
+.signOut:hover{
+  background-color: #196d3e !important;
+  color: #eef3f1 !important;
+}
+
 ul, li {
   padding: 0;
   margin: 0;
@@ -99,6 +131,11 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 0px;
   color: #fff;
   font-weight: 700;
+}
+
+#map h1, #map h2, #map h3, #map h4, #map h5, #map h6 {
+  color: black;
+  font-size: 15px;
 }
 
 ul {
@@ -172,6 +209,7 @@ p {
   position: relative;
   overflow: hidden;
   cursor: pointer;
+  margin-right: 2px;
 }
 
 .main-button a:hover {
@@ -405,7 +443,7 @@ Header Style
 
 .header-area .main-nav .logo {
   border-right: 1px solid #ffffff;
-  flex-basis: 25%;
+  flex-basis: 30%;
   margin-right: 2%;
   -webkit-transition: all 0.3s ease 0s;
   -moz-transition: all 0.3s ease 0s;
@@ -1431,6 +1469,86 @@ Other Related Style
   display: inline-block;
   text-align: center;
 }
+
+.treeButton a{
+  margin-right: 20px;
+  background-color: #fff !important;
+  color: #3d9b32 !important;
+}
+
+.treeButton a:hover{
+  color: #fff !important;
+  background-color: #3d9b32 !important;
+  /* slight bounce */
+  transform: scale(1.1);
+  transition: all 0.5s;
+  cursor: pointer;
+
+}
+
+.modal {
+  position: fixed;
+  height:300px;
+  width: 400px;
+  top: 50%; /* Position at the center of the screen vertically */
+  left: 50%; /* Position at the center of the screen horizontally */
+  transform: translate(-50%, -50%); /* Center the modal */
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.5); /* Darker shadow with increased spread */
+  display: block;
+  opacity: 0; /* Hide the modal */
+}
+
+.modal.active {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.cancel {
+  background-color: gainsboro !important;
+  cursor: pointer;
+  color: black !important;
+  margin-left: 10px;
+}
+
+select{
+  width: 100%;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.cancel:hover {
+  background-color: #6b6b6b !important;
+  color: white !important;
+  transition: all 0.5s;
+  cursor: pointer;
+}
+
+.modal-content {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+  border: none;
+}
+
+.center {
+  text-align: center;
+}
+
+.treeButton a i{
+  margin-left: 5px;
+}
+
+.empty{
+  background: none !important;
+}
+
 
 .slightRotate:hover {
   transform: rotate(-2deg); /* Initial rotation */

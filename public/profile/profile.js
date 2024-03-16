@@ -14,7 +14,7 @@ function fetchUserData() {
         return Promise.reject('No idToken found');
     }
 
-    return fetch('/api/user-data', {
+    return fetch('http://localhost:3000/api/user-data', {
         headers: { 'Authorization': `Bearer ${idToken}` }
     })
     .then(response => response.ok ? response.json() : Promise.reject('Failed to fetch user data'))
@@ -22,7 +22,7 @@ function fetchUserData() {
 }
 
 function fetchTreeData(username) {
-    fetch('/api/tree-map/data')
+    fetch('http://localhost:3000/api/tree-map/data')
     .then(response => {
         if (!response.ok) throw new Error('Failed to fetch tree data');
         return response.json();

@@ -16,7 +16,7 @@ document.getElementById('signin-form').addEventListener('submit', (e) => {
                 // Store the ID token in localStorage for later use
                 localStorage.setItem('idToken', idToken);
 
-                window.location.href = '/tree-map';
+                window.location.href = '/public/treemap/treemap.html';
             });
         })
         .catch((error) => {
