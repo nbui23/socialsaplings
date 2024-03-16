@@ -193,7 +193,7 @@ p {
 	border-radius: 23px;
 }
 
-.main-button a {
+.main-button a, .main-button button {
   font-size: 14px;
   color: #fff;
   background-color: #7cd073;
@@ -212,9 +212,56 @@ p {
   margin-right: 2px;
 }
 
+.comment-input{
+  border-radius: 10px 23px 23px 10px;
+  padding: 15px;
+  letter-spacing: 0.5px;
+  transition: all .3s;
+  background-color: #eef3f1;
+  border: none !important;
+  margin: 0 !important;
+
+  margin-top: 10px !important;
+
+}
+
+.comments-section{
+  margin:10px;
+}
+
+
 .main-button a:hover {
   background-color: #fff;
   color: #7cd073;
+}
+.toggle-comments{
+  padding: 8px;
+  background-color: #fff;
+  border-radius: 6px;
+  margin-bottom: 5px;
+  color: black;
+  
+}
+
+.toggle-comments:hover{
+  background-color: #8e8e8e;
+  color: #fff;
+  transition: all .2s;
+}
+.nospace{
+  margin-top: 10px !important;
+  margin-bottom: 50px !important;
+
+}
+.main-button button{
+  border:none;
+  border-radius: 10px 23px 23px 10px;
+  text-align: left !important;
+  float: left;
+}
+
+.main-button button:hover {
+  background-color: #0d753a;
 }
 
 .main-border-button a {
@@ -1470,6 +1517,97 @@ Other Related Style
   text-align: center;
 }
 
+/* make it a circle */
+.icon-post{
+  background-color: #fff;
+  color: #7cd073;
+  padding: 8px;
+  border-radius: 6px;
+  margin-bottom: 5px;
+  font-size: 15px;
+  display: inline-block;
+  text-align: center;
+  
+}
+
+.icon-post:hover{
+  background-color: #7cd073;
+  color: #fff;
+  transition: all 0.5s;
+  cursor: pointer;
+}
+
+.noOverflow{
+  /* if it is bigger than screen make it scroll */
+  overflow: auto;
+  max-height: 1000px;
+
+}
+
+.description{
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 15px;
+
+}
+
+.wider{
+  width: 500px;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+
+
+.comments-section{
+  color: #fff;
+}
+.comment{
+  font-size: 15px;
+  color: #fff !important;
+}
+
+
+.commentText{
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.bolder{
+  font-weight: 600;
+  color: #fff
+}
+
+.like-btn{
+  padding:8px;
+  border-radius: 6px;
+  margin-bottom: 7px;
+}
+
+.like-count, .heart-icon{
+  /* does nto appear on new line */
+  display: inline;
+}
+
+
+.like-info .heart-icon {
+    margin-right: 5px; /* Adjust spacing between heart icon and like count */
+}
+
+.image-post{
+  width: 100%;
+  border-radius: 23px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+
+
+}
+
 .treeButton a{
   margin-right: 20px;
   background-color: #fff !important;
@@ -1566,6 +1704,11 @@ select{
   transition: all 0.5s;
   cursor: pointer;
   transition: all 0.5s;
+}
+
+.wider img{
+  /* force max height */
+  max-height: 300px;
 }
 
 .icon-new:hover{
@@ -1678,7 +1821,7 @@ Top Streamers Style
   float: right;
 }
 
-.top-streamers ul li .main-button a {
+.top-streamers ul li .main-button a, .main-button button {
   padding: 8px 20px;
 }
 
@@ -1843,7 +1986,7 @@ body {
     float: none;
     margin-top: 10px;
   }
-  .top-streamers ul li .main-button a {
+  .top-streamers ul li .main-button a, .main-button button {
     width: 100%;
     text-align: center;
   }
