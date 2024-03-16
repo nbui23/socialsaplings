@@ -23,10 +23,23 @@
     button:hover {
       background-color: #ddd;
     }
+
+    #canvas-container {
+      position: absolute;
+      top: 50;
+      left: 50;
+      translate: 50%, 50%
+    }
+
+    canvas {
+      background-color: #073c1e;
+      display: block;
+    }
+
   </style>
 </head>
-<body>
-<div style="display: inline-block; position: relative">
+<body style="background-color: #073c1e">
+<div id='canvas-container'>
   <div
     id="overlappingDiv"
     style="
@@ -42,6 +55,14 @@
     "
   ></div>
   <canvas></canvas>
+  <div id="sapling-log" style="
+        margin-bottom: 5px;
+        padding: 5px;
+        border: 1px solid #ccc;
+        background-color: #f9f9f9;
+      ">SAPLING LOG</div>
+  <div id="inventory">
+  </div>
   <div
     id="characterDialogueBox"
     style="

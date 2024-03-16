@@ -9,21 +9,33 @@ for (let i = 0; i < collisions.length; i += 70) {
   collisionsMap.push(collisions.slice(i, 70 + i))
 }
 
+const oakTreeImg = new Image()
+oakTreeImg.src = './img/oakTree.png'
+
+const appleTreeImg = new Image()
+appleTreeImg.src = './img/appleTree.png'
+
+const cherryTreeImg = new Image()
+cherryTreeImg.src = './img/cherryTree.png'
+
 const treeTypes = {
   oak: {
       color: 'darkgreen',
       growthTime: 100, // Number of frames to fully grow
       finalSize: 5,
+      image: oakTreeImg,
   },
   apple: {
       color: 'red',
       growthTime: 150,
       finalSize: 4,
+      image: appleTreeImg,
   },
   cherry: {
       color: 'pink',
       growthTime: 120,
       finalSize: 3,
+      image: cherryTreeImg,
   },
 };
 let treePlantingModeActive = false;
@@ -133,6 +145,7 @@ playerLeftImage.src = './img/playerLeft.png'
 const playerRightImage = new Image()
 playerRightImage.src = './img/playerRight.png'
 
+
 const player = new Sprite({
   position: {
     x: canvas.width / 2 - 192 / 4 / 2,
@@ -193,7 +206,7 @@ const renderables = [
   ...boundaries,
   ...characters,
   player,
-  foreground
+  foreground,
 ]
 
 
@@ -346,6 +359,7 @@ function animate() {
 let lastKey = ''
 window.addEventListener('keydown', (e) => {
   if (e.key === 't') {
+
     treePlantingModeActive = !treePlantingModeActive;
     console.log(`Tree planting mode: ${treePlantingModeActive ? 'ON' : 'OFF'}`);
 }
@@ -419,17 +433,80 @@ window.addEventListener('keyup', (e) => {
   }
 })
 
+class Tree {
+  constructor(position, type){
+      this.position = position;
+      this.type = type;
+  }
+}
+
 let clicked = false
 canvas.addEventListener('click', (e) => {
   if (treePlantingModeActive) {
+    console.log("Planting tree...")
+    
+    // Get the position of the click relative to the canvas
     const rect = canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    console.log(`Planting tree at: ${x}, ${y}`); // Debugging
-    trees.push(new Tree({x, y}, selectedTreeType));
+    const treePositionX = player.position.x - background.position.x + offset.x;
+    const treePositionY = player.position.y - background.position.y + offset.y;
+
+
+    console.log(`Planting tree at: ${treePositionX}, ${treePositionY}`); // Debugging
+    trees.push(new Tree({treePositionX, treePositionY}, selectedTreeType));
+    updateInventory();
+
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    console.log(`Mouse clicked at: ${mouseX}, ${mouseY}`)
+
+    // Create a new tree sprite at the clicked position
+    const tree = new Sprite({
+      position: {
+        x: mouseX,
+        y: mouseY
+      },
+      image: treeTypes[selectedTreeType].image,
+      scale: 0.5
+    });
+    movables.push(tree);
+    renderables.push(tree);
+
 }
   if (!clicked) {
     audio.Map.play()
     clicked = true
   }
 })
+
+//Add an event listener for tree types select
+window.addEventListener('keydown', (e) => {
+    if (e.key === '1') {
+      selectedTreeType = 'oak';
+      console.log('Selected tree type: oak');
+    }
+    if (e.key === '2'){
+      selectedTreeType = 'apple';
+      console.log('Selected tree type: apple');
+    } 
+    if (e.key === '3') {
+      selectedTreeType = 'cherry';
+      console.log('Selected tree type: cherry');
+    }
+})
+
+function updateInventory() {
+  const inventoryDiv = document.getElementById('inventory');
+  inventoryDiv.innerHTML = ''; // Clear previous inventory
+
+  trees.forEach((tree, index) => {
+    const treeDiv = document.createElement('div');
+    treeDiv.textContent = `Tree ${index + 1}: ${tree.type}`;
+    treeDiv.style.marginBottom = '5px';
+    treeDiv.style.padding = '5px';
+    treeDiv.style.border = '1px solid #ccc';
+    treeDiv.style.backgroundColor = '#f9f9f9';
+    inventoryDiv.appendChild(treeDiv);
+  });
+}
+
+
