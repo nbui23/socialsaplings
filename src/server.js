@@ -68,6 +68,7 @@ app.get('/api/user-data', async (req, res) => {
   try {
       const userDoc = await db.collection('users').doc(uid).get();
       if (userDoc.exists) {
+          res.json(userDoc.data());
           console.log('User data:', userDoc.data());
           
           let data = {
