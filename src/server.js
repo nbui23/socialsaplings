@@ -68,7 +68,6 @@ app.get('/api/user-data', async (req, res) => {
   try {
       const userDoc = await db.collection('users').doc(uid).get();
       if (userDoc.exists) {
-          console.log('User data:', userDoc.data());
           res.json(userDoc.data());
       } else {
           res.status(404).send('User not found');
