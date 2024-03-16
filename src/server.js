@@ -6,104 +6,90 @@ import { config } from 'dotenv';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import { createRequire } from 'module';
+
+// Routes
 import { treeRecommendationRouter } from './routes/treeRecommendation.js';
 import { treeMapRouter } from './routes/treeMap.js';
 import { postsRouter } from './routes/posts.js';
 
+// Environment and Firebase Configuration
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const require = createRequire(import.meta.url);
-
 config({ path: path.resolve(__dirname, '../config/.env') });
-
+const require = createRequire(import.meta.url);
 const serviceAccount = require('../config/socialsaplings-firebase-adminsdk-f2ewh-0dd19032c2.json');
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
 });
 
-const app = express();
 const db = admin.firestore();
 
-app.use('/src', express.static(path.join(__dirname, '../src')));
+// Express Application Setup
+const app = express();
 app.use(express.json());
 app.use(cors());
+app.use(express.static(path.join(__dirname, '../public')));
 
+// Static Routes
+app.use('/src', express.static(path.join(__dirname, '../src')));
+
+// Authentication Middleware
 app.use(async (req, res, next) => {
   const idToken = req.headers.authorization?.split('Bearer ')[1];
-
   if (idToken) {
-      try {
-          const decodedToken = await admin.auth().verifyIdToken(idToken);
-          req.user = decodedToken;
-      } catch (error) {
-          console.error('Error while verifying token', error);
-      }
+    try {
+      const decodedToken = await admin.auth().verifyIdToken(idToken);
+      req.user = decodedToken;
+    } catch (error) {
+      console.error('Error while verifying token', error);
+    }
   }
-
   next();
 });
 
-// Route for the signin page
-app.get('/signin', function(req, res) {
-  res.sendFile(path.join(__dirname, '../public/signin/signin.html'));
-});
+// Utility for serving static HTML files
+const serveStaticHtml = (relativePath) => (req, res) => {
+  res.sendFile(path.join(__dirname, relativePath));
+};
 
-// Route for the signup page
-app.get('/signup', function(req, res) {
-  res.sendFile(path.join(__dirname, '../public/signup/signup.html'));
-});
+// Static HTML Routes
+app.get('/signin', serveStaticHtml('../public/signin/signin.html'));
+app.get('/signup', serveStaticHtml('../public/signup/signup.html'));
+app.get('/tree-map', serveStaticHtml('../public/treeMap/treeMap.html'));
 
-app.get('/tree-map', function(req, res) {
-  res.sendFile(path.join(__dirname, '../public/treeMap/treeMap.html'));
-});
-
+// API Routes
 app.use('/api/treeRecommendation', treeRecommendationRouter);
 app.use('/api/tree-map', treeMapRouter);
 app.use('/api/posts', postsRouter);
 
+// User Data Route
 app.get('/api/user-data', async (req, res) => {
-  const uid = req.user.uid; // Obtained from the decoded token
-  
+  if (!req.user) return res.status(401).send('Unauthorized');
+
   try {
-      const userDoc = await db.collection('users').doc(uid).get();
-      if (userDoc.exists) {
-          res.json(userDoc.data());
-          console.log('User data:', userDoc.data());
-          
-          let data = {
-            userId : userDoc.id,
-            CO2Absorbed : userDoc.data().CO2Absorbed,
-            TreesPlanted : userDoc.data().TreesPlanted,
-            joinedDate : userDoc.data().joinedDate,
-            username : userDoc.data().username,
-            profilePicture : userDoc.data().profilePicture
-          }
+    const userDoc = await admin.firestore().collection('users').doc(req.user.uid).get();
+    if (!userDoc.exists) return res.status(404).send('User not found');
 
-          res.json(data);
-      } else {
-          res.status(404).send('User not found');
-      }
-
+    const data = userDoc.data();
+    res.json({
+      userId: userDoc.id,
+      ...data
+    });
   } catch (error) {
-      console.error('Failed to fetch user data:', error);
-      res.status(500).send('Error fetching user data');
+    console.error('Failed to fetch user data:', error);
+    res.status(500).send('Error fetching user data');
   }
 });
-  
-app.get('/api/maps-key', (req, res) => {
-  res.json({ key: process.env.MAPS_API_KEY });
-});
 
-app.get('/api/weather-key', (req, res) => {
-  res.json({ key: process.env.WEATHER_API_KEY });
-});
+// API Keys Routes
+app.get('/api/maps-key', (req, res) => res.json({ key: process.env.MAPS_API_KEY }));
+app.get('/api/weather-key', (req, res) => res.json({ key: process.env.WEATHER_API_KEY }));
 
-app.use(express.static(path.join(__dirname, '../public')));
-
-export { db };
-
+// Server Initialization
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+export { admin, db };
