@@ -68,7 +68,10 @@ html[xmlns] .clearfix {
   bottom: 50px;
   left: 90px;
 }
+.left{
+ text-align: left !important;
 
+}
 #map {
   height: 65% !important;
   position: absolute !important;
@@ -79,6 +82,16 @@ html[xmlns] .clearfix {
   width: 90% !important;
   border-radius: 23px;
   box-shadow: 0px 0px 10px rgba(0,0,0,0.15);
+}
+
+.signOut{
+  background-color: #eef3f1 !important;
+  color: #073c1e !important;
+}
+
+.signOut:hover{
+  background-color: #196d3e !important;
+  color: #eef3f1 !important;
 }
 
 ul, li {
