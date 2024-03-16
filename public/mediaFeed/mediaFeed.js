@@ -10,20 +10,27 @@ function createPostElement(post) {
     const heartIcon = likedByUser ? '❤️' : '🤍';
 
     postElement.innerHTML = `
+        <div class='item mb-2 wider'>
         <h2>${post.title}</h2>
-        <p>By: ${userIdToUsernameMap[post.user]}</p>
-        <img src="${post.image}" alt="${post.title}" style="max-width: 100%;">
-        <p>${post.textBody}</p>
+        <img src="${post.image}" class='image-post' alt="${post.title}"><br>
+        <div class='icon-post'>
+        <a><i class='fa fa-user'></i></a>
+        <span>@${userIdToUsernameMap[post.user]}</span>
+        </div>
+        <p class='description'>${post.textBody}</p>
         <button class="like-btn" data-liked="${likedByUser}" data-postid="${post.postId}">
-            <span class="heart-icon">${heartIcon}</span>
+            <p class="heart-icon">${heartIcon}</p>
+            <p class="like-count">${post.likes.length}</p>
         </button>
-        <p>Likes: <span class="like-count">${post.likes.length}</span></p>
         <a href="#" class="toggle-comments">Show Comments</a>
         <div class="comments-section" style="display: none;"></div>
         <form class="comment-form" data-postid="${post.postId}">
             <input type="text" class="comment-input" placeholder="Add a comment..." />
+            <div class='main-button nospace'>
             <button type="submit">Post Comment</button>
+            </div>
         </form>
+        </div>
     `;
 
     // Add event listener for like button
@@ -48,7 +55,7 @@ function createPostElement(post) {
         commentsToggle.textContent = isDisplayed ? 'Show Comments' : 'Hide Comments';
         // Populate comments if not already displayed
         if (!isDisplayed) {
-            commentsSection.innerHTML = post.comments.map(comment => `<p>${userIdToUsernameMap[comment.user]}: ${comment.comment}</p>`).join('');
+            commentsSection.innerHTML = post.comments.map(comment => `<p class='comment'><span class='bolder'>${userIdToUsernameMap[comment.user]}:</span> ${comment.comment}</p>`).join('');
         }
     });
 
@@ -70,15 +77,23 @@ function createPostElement(post) {
 
 // Function to render posts in the DOM
 function renderPosts(posts) {
-    const container = document.getElementById('posts-container');
+    // const container = document.getElementById('posts-container');
+    const container1 = document.getElementById('posts-container-column1');
+    const container2 = document.getElementById('posts-container-column2');
     if (!posts || posts.length === 0) {
         container.innerHTML = '<p>No posts available.</p>';
         return;
     }
 
-    posts.forEach(post => {
+    posts.forEach((post, index) => {
         const postElement = createPostElement(post);
-        container.appendChild(postElement);
+        // container.appendChild(postElement);
+        if (index % 2 === 0) {
+            container1.appendChild(postElement);
+        } else {
+            container2.appendChild(postElement);
+        }
+
     });
 }
 
@@ -86,13 +101,13 @@ function renderPosts(posts) {
 function displayPosts() {
     getPosts().then(renderPosts).catch(error => {
         console.error('Error populating posts:', error);
-        document.getElementById('posts-container').innerHTML = '<p>Error fetching posts. Please try again later.</p>';
+        document.getElementById('p-container').innerHTML = '<p>Error fetching posts. Please try again later.</p>';
     });
 }
 
 // Fetches posts from the server
 function getPosts() {
-    return fetch('/api/posts')
+    return fetch('http://localhost:3000/api/posts')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Failed to fetch posts');
@@ -117,7 +132,7 @@ function fetchUserData() {
         return Promise.reject('No idToken found');
     }
 
-    return fetch('/api/user-data', {
+    return fetch('http://localhost:3000/api/user-data', {
         headers: {
             'Authorization': `Bearer ${idToken}`
         }
@@ -154,7 +169,7 @@ function returnArray(){
 }
 
 function addComment(postId, comment, commentsSection) {
-    fetch('/api/posts/addComment', {
+    fetch('http://localhost:3000/api/posts/addComment', {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',
@@ -165,7 +180,8 @@ function addComment(postId, comment, commentsSection) {
     .then(data => {
         if (data.success) {
             const newCommentElement = document.createElement('p');
-            newCommentElement.textContent = `${userIdToUsernameMap[comment.user]}: ${comment.comment}`;
+            newCommentElement.classList.add('comment'); // Add the 'comment' class
+            newCommentElement.innerHTML = `<span class='bolder'>${userIdToUsernameMap[comment.user]}:</span> ${comment.comment}`;
             commentsSection.appendChild(newCommentElement);
             commentsSection.style.display = 'block';
         }
@@ -179,7 +195,7 @@ function toggleHeartIcon(likeButton, liked) {
 }
 
 function likePost(postId, likeButton, likesCounter) {
-    fetch('/api/posts/like', {
+    fetch('http://localhost:3000/api/posts/like', {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',
@@ -201,7 +217,7 @@ function likePost(postId, likeButton, likesCounter) {
 }
 
 function unlikePost(postId, likeButton, likesCounter) {
-    fetch('/api/posts/unlike', {
+    fetch('http://localhost:3000/api/posts/unlike', {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',
@@ -224,7 +240,7 @@ function unlikePost(postId, likeButton, likesCounter) {
 
 function fetchAllUsers() {
     return new Promise((resolve, reject) => {
-        fetch('/api/users/')
+        fetch('http://localhost:3000/api/users/')
             .then(response => {
                 if (!response.ok) throw new Error('Failed to fetch users');
                 return response.json();
