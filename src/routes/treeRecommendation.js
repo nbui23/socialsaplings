@@ -16,7 +16,6 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-
 const db = getFirestore(app);
 
 const router = express.Router();
@@ -57,41 +56,6 @@ async function fetchSoilClass(lat, lon) {
 function classifySoilData(soilData) {
     const wbClass = soilData.wrb_class_name;
     return wbClass;
-    // switch (wbClass) {
-    //     case 'Arenosols': return 'sandy';
-    //     case 'Gleysols': return 'wetland';
-    //     case 'Luvisols': return 'eluvial';
-    //     case 'Podzols': return 'acidic';
-    //     case 'Vertisols': return 'clayey';
-    //     case 'Histosols': return 'thick organic layers';
-    //     case 'Anthrosols': return 'strong human influence';
-    //     case 'Technosols': return 'artefacts present';
-    //     case 'Cryosols': return 'permafrost-affected';
-    //     case 'Leptosols': return 'thin or coarse';
-    //     case 'Solonetz': return 'high Na, clay-enriched subsoil';
-    //     case 'Solonchaks': return 'high soluble salts';
-    //     case 'Andosols': return 'Fe/Al chemistry, allophanes';
-    //     case 'Plinthosols': return 'Fe accumulation, redistribution';
-    //     case 'Planosols': return 'water stagnation, textural difference';
-    //     case 'Stagnosols': return 'water stagnation, moderate difference';
-    //     case 'Nitisols': return 'low-activity clays, Fe oxides';
-    //     case 'Ferralsols': return 'kaolinite, oxides';
-    //     case 'Chernozems': return 'dark, structured topsoil, carbonates';
-    //     case 'Kastanozems': return 'dark topsoil, carbonates';
-    //     case 'Phaeozems': return 'dark topsoil, high base status';
-    //     case 'Umbrisols': return 'dark topsoil, low base status';
-    //     case 'Durisols': return 'secondary silica';
-    //     case 'Gypsisols': return 'secondary gypsum';
-    //     case 'Calcisols': return 'secondary carbonates';
-    //     case 'Retisols': return 'clay-enriched subsoil, interfingering';
-    //     case 'Acrisols': return 'low-activity clays, Al';
-    //     case 'Lixisols': return 'low-activity clays, bases ≥ Al';
-    //     case 'Alisols': return 'high-activity clays, Al > bases';
-    //     case 'Cambisols': return 'moderately developed';
-    //     case 'Fluvisols': return 'stratified sediments';
-    //     case 'Regosols': return 'little profile development';
-    //     default: return 'unknown';
-    // }
 }
 
 async function fetchClimateData(lat, lon) {
@@ -137,9 +101,6 @@ async function matchTreesToConditions(soilClass, topographyClass, biodiversityCl
     soilClass = soilClass.trim().toLowerCase();
     topographyClass = topographyClass.trim().toLowerCase();
     biodiversityClass = biodiversityClass.trim().toLowerCase();
-    console.log('soilClass:', soilClass);
-    console.log('topographyClass:', topographyClass);
-    console.log('biodiversityClass:', biodiversityClass);
     const treeSpecies = await getTreeSpecies();
     const matchingTrees = treeSpecies.filter(tree => {
         const soilMatch = tree.idealSoilClasses.map(value => value.toLowerCase()).includes(soilClass);
