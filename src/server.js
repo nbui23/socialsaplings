@@ -69,6 +69,18 @@ app.get('/api/user-data', async (req, res) => {
       const userDoc = await db.collection('users').doc(uid).get();
       if (userDoc.exists) {
           res.json(userDoc.data());
+          console.log('User data:', userDoc.data());
+          
+          let data = {
+            userId : userDoc.id,
+            CO2Absorbed : userDoc.data().CO2Absorbed,
+            TreesPlanted : userDoc.data().TreesPlanted,
+            joinedDate : userDoc.data().joinedDate,
+            username : userDoc.data().username,
+            profilePicture : userDoc.data().profilePicture
+          }
+
+          res.json(data);
       } else {
           res.status(404).send('User not found');
       }

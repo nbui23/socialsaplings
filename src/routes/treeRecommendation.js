@@ -131,7 +131,7 @@ async function matchTreesToConditions(soilClass, climateClass, topographyClass, 
 
         return soilMatch && climateMatch && topographyMatch && biodiversityMatch;
     });
-    return matchingTrees.map(tree => tree.name);
+    return matchingTrees;
 }
 
 router.post('/', async (req, res) => {
