@@ -25,10 +25,13 @@
     }
 
     #canvas-container {
-      position: absolute;
-      top: 50;
-      left: 50;
-      translate: 50%, 50%
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      width: 100vw;
     }
 
     canvas {
@@ -39,45 +42,48 @@
   </style>
 </head>
 <body style="background-color: #073c1e">
-<div id='canvas-container'>
-  <div
-    id="overlappingDiv"
-    style="
-      background-color: black;
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      opacity: 0;
-      pointer-events: none;
-      z-index: 10;
-    "
-  ></div>
-  <canvas></canvas>
-  <div id="sapling-log" style="
-        margin-bottom: 5px;
-        padding: 5px;
-        border: 1px solid #ccc;
-        background-color: #f9f9f9;
-      ">SAPLING LOG</div>
-  <div id="inventory">
+  <div id='canvas-container'>
+    <div
+      id="overlappingDiv"
+      style="
+        background-color: black;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        opacity: 0;
+        pointer-events: none;
+        z-index: 10;
+      "
+    ></div>
+    <div style="display: flex; justify-content: center; width: 100%;">
+      <canvas></canvas>
+      <div id="sidebar" style="width: 200px; padding: 20px;">
+        <div id="sapling-log" style="
+              margin-bottom: 5px;
+              padding: 5px;
+              border: 1px solid #ccc; 
+              background-color: #f9f9f9;"
+              >SAPLING LOG</div>
+        <div id="inventory">
+      </div>
+    </div>
+    <div
+      id="characterDialogueBox"
+      style="
+        background-color: white;
+        height: 140px;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        border-top: 4px black solid;
+        display: none;
+        padding: 12px;
+      "
+    ></div>
   </div>
-  <div
-    id="characterDialogueBox"
-    style="
-      background-color: white;
-      height: 140px;
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      border-top: 4px black solid;
-      display: none;
-      padding: 12px;
-    "
-  ></div>
-</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js" crossorigin="anonymous"></script>
 <script src="data/audio.js"></script>
