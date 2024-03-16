@@ -57,6 +57,7 @@ const serveStaticHtml = (relativePath) => (req, res) => {
 app.get('/signin', serveStaticHtml('../public/signin/signin.html'));
 app.get('/signup', serveStaticHtml('../public/signup/signup.html'));
 app.get('/tree-map', serveStaticHtml('../public/treeMap/treeMap.html'));
+app.get('/media-feed', serveStaticHtml('../public/mediaFeed/mediaFeed.html'));
 
 // API Routes
 app.use('/api/treeRecommendation', treeRecommendationRouter);
