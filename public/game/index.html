@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      font-family: 'Press Start 2P', cursive;
+      box-sizing: border-box;
+    }
+    body {
+      background-color: black;
+    }
+    h1 {
+      margin: 0;
+    }
+    button {
+      border: 0;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #ddd;
+    }
+  </style>
+</head>
+<body>
+<div style="display: inline-block; position: relative">
+  <div
+    id="overlappingDiv"
+    style="
+      background-color: black;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 10;
+    "
+  ></div>
+  <canvas></canvas>
+  <div
+    id="characterDialogueBox"
+    style="
+      background-color: white;
+      height: 140px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      border-top: 4px black solid;
+      display: none;
+      padding: 12px;
+    "
+  ></div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js" crossorigin="anonymous"></script>
+<script src="data/audio.js"></script>
+<script src="data/collisions.js"></script>
+<script src="data/characters.js"></script>
+<script src="js/utils.js"></script>
+<script src="classes.js"></script>
+<script src="index.js"></script>
+</body>
+</html>
