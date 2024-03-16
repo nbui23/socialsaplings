@@ -1,18 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <div id="profile">
-        <h1>User Profile</h1>
-        <p><strong>Username:</strong> <span id="username">Loading...</span></p>
-        <p><strong>Trees Planted:</strong> <span id="trees-planted">Loading...</span></p>
-        <p><strong>Average CO2 Absorbed:</strong> <span id="co2-absorbed">Loading...</span> kg</p>
-    </div>
+  <head>
 
-    <script src="profile.js"></script>
-</body>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <title>Social Saplings</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="../assets/css/fontawesome.css">
+    <link rel="stylesheet" href="../assets/css/templatemo-cyborg-gaming.css">
+    <link rel="stylesheet" href="../assets/css/owl.css">
+    <link rel="stylesheet" href="../assets/css/animate.css">
+    <link rel="stylesheet"href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
+<!--
+
+TemplateMo 579 Cyborg Gaming
+
+https://templatemo.com/tm-579-cyborg-gaming
+
+-->
+  </head>
+
+<body>
+
+  <!-- ***** Preloader Start ***** -->
+  <div id="js-preloader" class="js-preloader">
+    <div class="preloader-inner">
+      <span class="dot"></span>
+      <div class="dots">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </div>
+  <!-- ***** Preloader End ***** -->
+
+  <!-- ***** Header Area Start ***** -->
+  <header class="header-area header-sticky">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav class="main-nav">
+                    <!-- ***** Logo Start ***** -->
+                    <a href="index.html" class="logo">
+                        <img src="../assets/horizontal-strip-logo.png" alt="">
+                    </a>
+                    <ul class="nav">
+                      <div class="main-button">
+                        <a href="../home/home.html" class="active dgreen">Home</a>
+                        <a href="../treeRecommendation/treeRecommendation.html" class="active dgreen">Tree Recommendation</a>
+                        <a href="../treeMap/treeMap.html" class="active dgreen">Tree Map</a>
+                        <a href="../resources/resources.html" class="active dgreen">Resources</a>
+                        <a href="../signin/signin.html" class="signOut">Sign Out</a>
+                      </div>
+                    </ul>
+                    <a class='menu-trigger'>
+                        <span>Menu</span>
+                    </a>
+                    <!-- ***** Menu End ***** -->
+                </nav>
+            </div>
+        </div>
+    </div>
+  </header>
+  <!-- ***** Header Area End ***** -->
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="page-content">
+
+            <div id="profile">
+                <h1 class="dgreen">
+                    <div class="icon-new flipper">
+                        <a><i class="fa fa-user"></i></a>
+                    </div>
+                    <span>User Profile</span>
+                </h1>
+
+            </div>
+
+          <!-- ***** Start Stream Start ***** -->
+          <div class="start-stream">
+            <div class="col-lg-12">
+              <div class="heading-section">
+                <h4 class="left"> Your Journey - <em class="dgreen"><span id="username">Loading...</span> </em></h4>
+              </div>
+              <div class="row">
+                <div class="col-lg-4">
+                  <div class="item">
+                    <div class="icon-new flipper">
+                      <a><i class="fa fa-tree"></i></a>
+                    </div>
+                    <h4>Trees Planted: <span id="trees-planted">Loading...</span></h4>
+                    <p>Congratulations on your tree planting journey! Keep track of your progress and see how your efforts contribute to the community's collective impact.</p>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="item">
+                    <div class="icon-new flipper">
+                      <a><i class="fa fa-flask"></i></a>
+                    </div>
+                    <h4>Average CO2 Absorbed: <span id="co2-absorbed">Loading...</span> kg</h4>
+                    <p>See the impact of your tree planting efforts on the environment. Your trees are absorbing CO2 and contributing to a healthier planet.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- ***** Start Stream End ***** -->
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <p>Copyright © 2024 <a href="#">Social Saplings</a> Company. All rights reserved. 
+          
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <script src="profile.js"></script>
+  <script src="../vendor/jquery/jquery.min.js"></script>
+  <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+
+  <script src="../assets/js/isotope.min.js"></script>
+  <script src="../assets/js/owl-carousel.js"></script>
+  <script src="../assets/js/tabs.js"></script>
+  <script src="../assets/js/popup.js"></script>
+  <script src="../assets/js/custom.js"></script>
+
+
+  </body>
+
 </html>
