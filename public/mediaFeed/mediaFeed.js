@@ -9,6 +9,11 @@ function createPostElement(post) {
     const likedByUser = post.likes.includes(userData.userId);
     const heartIcon = likedByUser ? '❤️' : '🤍';
 
+    const eventInfo = post.isEvent ? `
+        <p class='description'>Date: ${new Date(post.date).toLocaleDateString()}</p>
+        <p class='description'>Location: ${post.location}</p>
+    ` : '';
+
     postElement.innerHTML = `
         <div class='item mb-2 wider'>
         <h2>${post.title}</h2>
@@ -18,6 +23,7 @@ function createPostElement(post) {
         <span>@${userIdToUsernameMap[post.user]}</span>
         </div>
         <p class='description'>${post.textBody}</p>
+        ${eventInfo}
         <button class="like-btn" data-liked="${likedByUser}" data-postid="${post.postId}">
             <p class="heart-icon">${heartIcon}</p>
             <p class="like-count">${post.likes.length}</p>
