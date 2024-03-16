@@ -1,32 +1,30 @@
 import express from 'express';
-import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, getDocs } from 'firebase/firestore'; 
-
-const firebaseConfig = {
-    apiKey: "AIzaSyCxuxa5bFTXVYF_NRH9HrRV_mebUzQ05OM",
-    authDomain: "socialsaplings.firebaseapp.com",
-    projectId: "socialsaplings",
-    storageBucket: "socialsaplings.appspot.com",
-    messagingSenderId: "387358176449",
-    appId: "1:387358176449:web:170965d7d094b37c445040",
-    measurementId: "G-WB4L946TCH"
-};
-
-const app = initializeApp(firebaseConfig);
+import { db } from '../server.js';
 
 const router = express.Router();
-const db = getFirestore(app);
 
 // API endpoint to get tree data
 router.get('/data', async (req, res) => {
     try {
-        const treeMarkers = collection(db, 'treeMarkers');
-        const treeDocs = await getDocs(treeMarkers);
-        const trees = treeDocs.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        const treeMarkersRef = db.collection('treeMarkers');
+        const snapshot = await treeMarkersRef.get();
+        const trees = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         res.json(trees);
     } catch (error) {
         console.error("Error fetching tree data: ", error);
         res.status(500).send(error);
+    }
+});
+
+// API endpoint to add a new tree marker
+router.post('/add', async (req, res) => {
+    try {
+        const newTreeMarker = req.body;
+        const docRef = await db.collection('treeMarkers').add(newTreeMarker);
+        res.status(201).send({ success: true, id: docRef.id });
+    } catch (error) {
+        console.error("Error adding new tree marker: ", error);
+        res.status(500).send({ success: false, error: error.message });
     }
 });
 

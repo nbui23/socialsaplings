@@ -1,5 +1,35 @@
 let googleMapsApiLoaded = false;
 
+document.addEventListener('DOMContentLoaded', function () {
+    loadGoogleMapsApi();
+});
+
+function fetchUserData() {
+    const idToken = localStorage.getItem('idToken'); // Retrieve the token
+    if (!idToken) {
+        window.location.href = '/signin'; // Redirect if not found
+        return;
+    }
+
+    fetch('/api/user-data', {
+        headers: {
+            'Authorization': `Bearer ${idToken}`
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to fetch user data');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log("User data fetched successfully:", data);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
 function loadGoogleMapsApi() {
     if (googleMapsApiLoaded) {
         console.log("Google Maps API is already loaded.");
@@ -15,6 +45,7 @@ function loadGoogleMapsApi() {
             script.defer = true;
             script.onload = function () {
                 googleMapsApiLoaded = true;
+                fetchUserData();
             };
             document.head.appendChild(script);
         })
@@ -96,6 +127,3 @@ function fetchTreeDataAndDisplayMarkers(map) {
             console.error('There has been a problem with your fetch operation:', error);
         });
 }
-
-
-loadGoogleMapsApi();
