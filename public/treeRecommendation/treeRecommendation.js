@@ -7,9 +7,11 @@ function getLocation() {
 }
 
 function sendPositionToServer(position) {
+    const loadingElement = document.getElementById('loading');
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
     console.log("Sending location data to server:", latitude, longitude);
+    loadingElement.style.display = 'block';
 
     fetch('http://localhost:3000/api/treerecommendation/geolocation', {
         method: 'POST',
@@ -21,7 +23,6 @@ function sendPositionToServer(position) {
     .then(response => response.json())
     .then(data => {
         console.log('Success:', data);
-        alert('Location data sent successfully.');
 
         // Send a request to the /api/soildata endpoint
         return fetch('http://localhost:3000/api/treerecommendation', {
@@ -36,11 +37,12 @@ function sendPositionToServer(position) {
     .then(data => {
         console.log('Soil Data:', data);
         displayTreeRecommendations(data.treeRecommendation);
-        alert('Soil data retrieved successfully.');
+        loadingElement.style.display = 'none';
     })
     .catch((error) => {
         console.error('Error:', error);
         alert('Failed to send location data or retrieve soil data.');
+        loadingElement.style.display = 'none';
     });
 }
 
