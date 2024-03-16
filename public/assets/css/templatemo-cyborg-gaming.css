@@ -406,7 +406,7 @@ Header Style
 .header-area .main-nav .logo {
   border-right: 1px solid #ffffff;
   flex-basis: 25%;
-  margin-right: 5%;
+  margin-right: 2%;
   -webkit-transition: all 0.3s ease 0s;
   -moz-transition: all 0.3s ease 0s;
   -o-transition: all 0.3s ease 0s;
@@ -463,7 +463,7 @@ Header Style
   letter-spacing: .3px;
 }
 
-.header-area .main-nav .nav li:last-child a {
+.header-area .main-nav .nav li a {
   background-color: #7cd073;
   padding: 8px 10px 8px 20px;
   border-radius: 23px;
@@ -475,8 +475,8 @@ Header Style
   margin-left: 5px;
 }
 
-.header-area .main-nav .nav li.has-sub ul.sub-menu li:last-child a:hover,
-.background-header .main-nav .nav li.has-sub ul.sub-menu li:last-child a:hover {
+.header-area .main-nav .nav li.has-sub ul.sub-menu li a:hover,
+.background-header .main-nav .nav li.has-sub ul.sub-menu li a:hover {
   padding-left: 25px !important;
 }
 
@@ -485,8 +485,8 @@ Header Style
   color: #7cd073 !important;
 }
 
-.header-area .main-nav .nav li:last-child:hover a,
-.header-area .main-nav .nav li:last-child a.active {
+.header-area .main-nav .nav li a,
+.header-area .main-nav .nav li a.active {
   color: #073c1e !important;
   background-color: #7cd073 !important;
 }
@@ -732,7 +732,7 @@ Header Style
   .header-area .main-nav .nav li:last-child a img {
     display: none;
   }
-  .header-area .main-nav .nav li:last-child a:hover {
+  .header-area .main-nav .nav li a:hover {
     color: #7cd073 !important;
     background-color: transparent !important;
   }
@@ -775,6 +775,13 @@ Banner Style
 --------------------------------------------- 
 */
 
+.mission-text{
+  color: #fff !important;
+  font-size: 20px;
+  font-weight: 400;
+  margin-bottom: 25px;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
+}
 .main-banner {
   background-image: url("../strip-tree.png");
   background-position: center center;
@@ -858,6 +865,9 @@ Most Popular Style
   text-align: right;
   color: #fff;
   font-size: 14px;
+}
+.dgreen{
+  color: #073c1e !important;
 }
 
 .most-popular .item ul li:first-child i {
@@ -1075,8 +1085,8 @@ Featured Games Style
   border-radius: 23px;
   background-color: #073c1e;
   padding: 30px;
-  max-height: 567px;
-  min-height: 567px;
+  max-height: 487px;
+  min-height: 487px;
 }
 
 .top-downloaded ul li {
@@ -1155,6 +1165,7 @@ Start Stream Style
   padding: 30px;
   border: 1px solid #444;
   border-radius: 23px;
+  background-color: #073c1e;
 }
 
 .start-stream .item h4 {
@@ -1410,6 +1421,39 @@ Other Related Style
   margin-top: 60px;
 }
 
+.icon-new{
+  background-color: #fff;
+  color: #7cd073;
+  border-radius: 40%;
+  padding: 15px;
+  margin-right: 5px;
+  font-size: 30px;
+  display: inline-block;
+  text-align: center;
+}
+
+.slightRotate:hover {
+  transform: rotate(-2deg); /* Initial rotation */
+  transition: transform 0.25s ease; /* Smooth transition */
+}
+
+.slightRotate:hover {
+  transform: rotate(2deg); /* Rotate back to its original position */
+  transition: transform 0.5s ease; /* Smooth transition */
+}
+
+/* on hover it flips */
+.flipper:hover{
+  transform: rotate(360deg);
+  transition: all 0.5s;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+
+.icon-new:hover{
+  color: #fff;
+  background-color: #7cd073;
+}
 .other-games .item {
   position: relative;
   border-bottom: 1px solid #eef3f1;
@@ -1731,7 +1775,7 @@ body {
     padding-left: 5px;
   }
   .header-area .main-nav .logo {
-    margin-right: 30px;
+    margin-right: 10px;
     border-right: none;
   }
   .tree-recommendations .item ul li {
