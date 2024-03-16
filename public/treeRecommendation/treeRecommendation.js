@@ -9,8 +9,9 @@ function getLocation() {
 function sendPositionToServer(position) {
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
+    console.log("Sending location data to server:", latitude, longitude);
 
-    fetch('http://localhost:3000/api/geolocation', {
+    fetch('http://localhost:3000/api/treerecommendation/geolocation', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -23,7 +24,7 @@ function sendPositionToServer(position) {
         alert('Location data sent successfully.');
 
         // Send a request to the /api/soildata endpoint
-        return fetch('http://localhost:3000/api/soildata', {
+        return fetch('http://localhost:3000/api/treerecommendation', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
