@@ -52,6 +52,23 @@ router.get('/', async (req, res) => {
     }    
 });
 
+// router.get('/:id', async (req, res) => {
+//     //Get a post by id
+//     try {
+//         const { postId } = req.params.id;
+//         const postsCollection = collection(db, 'posts');
+//         const postDoc = await getDoc(doc(postsCollection, postId));
+//         if (postDoc.exists()) {
+//             res.json(postDoc.data());
+//         } else {
+//             res.status(404).json({ error: 'Post not found' });
+//         }
+//     } catch (error) {
+//         console.error("Error fetching post: ", error);
+//         res.status(500).send(error);
+//     }
+// });
+
 router.post("/createPost", async (req, res) => {
     //Create a new post
     try {
@@ -81,11 +98,10 @@ router.patch("/addComment", async (req, res) => {
         //}
         
         const { postId, comment} = req.body;
-        
 
         const postsCollection = collection(db, 'posts');
         const postDoc = await getDoc(doc(postsCollection, postId));
-  
+        
         const post = postDoc.data();
         post.comments.push(comment);
         await setDoc(postDoc.ref, post);
