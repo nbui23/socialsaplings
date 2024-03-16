@@ -8,6 +8,7 @@ import { dirname } from 'path';
 import { createRequire } from 'module';
 import { treeRecommendationRouter } from './routes/treeRecommendation.js';
 import { treeMapRouter } from './routes/treeMap.js';
+import { postsRouter } from './routes/posts.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -40,6 +41,8 @@ app.get('/signup', function(req, res) {
 app.use('/api/treeRecommendation', treeRecommendationRouter);
 
 app.use('/api/tree-map', treeMapRouter);
+
+app.use('/api/posts', postsRouter);
 
 app.get('/api/maps-key', (req, res) => {
   res.json({ key: process.env.MAPS_API_KEY });
