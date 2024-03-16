@@ -15,7 +15,8 @@ const db = firebase.firestore();
 const markerColors = {
     "Pine": "green", "Willow": "blue", "Beech": "yellow",
     "Maple": "orange", "Birch": "pink", "Oak": "red",
-    "Sugar Maple": "purple", "White Pine": "grey", "Northern Red Oak": "brown"
+    "Sugar Maple": "purple", "White Pine": "grey", "Northern Red Oak": "brown",
+    "Eastern Hemlock": "cyan", "Unknown/Other": "black"
 };
 
 // Global variables
@@ -51,13 +52,14 @@ function setupEventListeners() {
     document.getElementById('personal-trees').addEventListener('click', handlePersonalTreesClick);
     document.getElementById('all-trees').addEventListener('click', showAllMarkers);
     document.getElementById('plant-tree').addEventListener('click', () => toggleModalVisibility('plantTreeModal', true));
+    document.getElementById('plantTreeCancel').addEventListener('click', () => toggleModalVisibility('plantTreeModal', false));
     document.getElementById('plantTreeSubmit').addEventListener('click', handlePlantTreeSubmit);
 }
 
 // Load Google Maps API
 function loadGoogleMapsApi() {
     if (googleMapsApiLoaded) return console.log("Google Maps API is already loaded.");
-    fetch('/api/maps-key')
+    fetch('http://localhost:3000/api/maps-key')
         .then(response => response.json())
         .then(data => {
             const script = document.createElement('script');
@@ -90,6 +92,30 @@ function handlePersonalTreesClick() {
 }
 
 // Handle Plant Tree Submit
+// async function handlePlantTreeSubmit() {
+//     try {
+//         const treeSpecies = document.getElementById('treeSpecies').value;
+//         const username = await fetchUserData();
+//         const color = markerColors[treeSpecies];
+//         const timeOfSubmission = new Date().toISOString();
+
+//         navigator.geolocation.getCurrentPosition(position => {
+//             const markerData = {
+//                 speciesName: treeSpecies,
+//                 latitude: position.coords.latitude,
+//                 longitude: position.coords.longitude,
+//                 date: timeOfSubmission,
+//                 username: username,
+//                 color: color,
+//             };
+//             addMarkerToDatabase(markerData);
+//             toggleModalVisibility('plantTreeModal', false);
+//         });
+//     } catch (error) {
+//         console.error("Error submitting tree:", error);
+//     }
+// }
+
 async function handlePlantTreeSubmit() {
     try {
         const treeSpecies = document.getElementById('treeSpecies').value;
@@ -107,6 +133,7 @@ async function handlePlantTreeSubmit() {
                 color: color,
             };
             addMarkerToDatabase(markerData);
+            createMarkerForTree(markerData);
             toggleModalVisibility('plantTreeModal', false);
         });
     } catch (error) {
@@ -122,7 +149,7 @@ function fetchUserData() {
         return Promise.reject('No idToken found');
     }
 
-    return fetch('/api/user-data', {
+    return fetch('http://localhost:3000/api/user-data', {
         headers: { 'Authorization': `Bearer ${idToken}` }
     })
     .then(response => response.ok ? response.json() : Promise.reject('Failed to fetch user data'))
@@ -138,7 +165,7 @@ function addMarkerToDatabase(markerData) {
 
 // Fetch Tree Data and Display Markers
 function fetchTreeDataAndDisplayMarkers() {
-    fetch('/api/tree-map/data')
+    fetch('http://localhost:3000/api/tree-map/data')
         .then(response => response.ok ? response.json() : Promise.reject('Network response was not ok'))
         .then(data => {
             markers = data.map(tree => createMarkerForTree(tree));
@@ -226,8 +253,12 @@ function adjustMapViewToVisibleMarkers() {
 }
 
 function toggleModalVisibility(modalId, isVisible) {
-    const displayValue = isVisible ? 'block' : 'none';
-    document.getElementById(modalId).style.display = displayValue;
+    const modal = document.getElementById(modalId);
+    if (isVisible) {
+        modal.classList.add('active');
+    } else {
+        modal.classList.remove('active');
+    }
 }
 
 function mapStyles() {
