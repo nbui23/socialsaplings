@@ -1,9 +1,5 @@
 import { auth, signInWithEmailAndPassword } from '../../src/firebase/firebase.js';
 
-document.getElementById('signup').addEventListener('click', () => {
-    window.location = '../signup/signup.html';
-});
-
 document.getElementById('signin-form').addEventListener('submit', (e) => {
     e.preventDefault();
 
@@ -12,14 +8,25 @@ document.getElementById('signin-form').addEventListener('submit', (e) => {
 
     signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-            const user = userCredential.user;
-            console.log("User signed in: ", user);
+            // User signed in successfully
+            console.log("User signed in: ", userCredential.user);
+
+            // Get the ID token of the user
+            userCredential.user.getIdToken().then(idToken => {
+                // Store the ID token in localStorage for later use
+                localStorage.setItem('idToken', idToken);
+
+                window.location.href = '/tree-map';
+            });
         })
         .catch((error) => {
-            if (error.code === 'auth/invalid-login-credentials') {
-                console.error("Invalid login credentials. Please check your email and password.");
-            } else {
-                console.error("Error signing in:", error);
-            }
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.error("Error signing in:", errorCode, errorMessage);
+            // Handle errors here, such as displaying a message to the user
         });
+});
+
+document.getElementById('signup').addEventListener('click', () => {
+    window.location.href = '/signup';
 });
