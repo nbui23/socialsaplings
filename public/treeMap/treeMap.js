@@ -52,10 +52,9 @@ function fetchTreeDataAndDisplayMarkers(map) {
             return response.json();
         })
         .then(data => {
-            data.forEach(tree => {
+            const markers = data.map(tree => {
                 const marker = new google.maps.Marker({
                     position: { lat: tree.latitude, lng: tree.longitude },
-                    map: map,
                     icon: {
                         path: google.maps.SymbolPath.CIRCLE,
                         scale: 10,
@@ -63,6 +62,7 @@ function fetchTreeDataAndDisplayMarkers(map) {
                         fillOpacity: 1,
                         strokeWeight: 0,
                     },
+                    title: tree.speciesName,
                 });
 
                 const infoWindowContent = `
@@ -84,11 +84,18 @@ function fetchTreeDataAndDisplayMarkers(map) {
                         shouldFocus: false,
                     });
                 });
+
+                return marker;
+            });
+
+            let markerClusterer = new MarkerClusterer(map, markers, { 
+                imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m' //TODO: change this shit
             });
         })
         .catch(error => {
             console.error('There has been a problem with your fetch operation:', error);
         });
 }
+
 
 loadGoogleMapsApi();

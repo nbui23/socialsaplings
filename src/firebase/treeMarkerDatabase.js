@@ -56,19 +56,18 @@ const getRandomUsername = () => {
 
 const generateMarkers = async () => {
     for (let i = 0; i < 20; i++) {
-        const speciesName = getRandomSpeciesName(); // Ensure this calls the function
+        const speciesName = getRandomSpeciesName();
         const coords = getRandomCoordinates(baseCoordinates);
 
-        // Log to verify speciesName is a string
         console.log("Generated speciesName:", speciesName);
 
         const markerData = {
-            speciesName: speciesName, // This should be a string
+            speciesName: speciesName,
             latitude: coords.lat,
             longitude: coords.lon,
             date: new Date().toISOString(),
             username: getRandomUsername(),
-            color: markerColors[speciesName], // Ensure speciesName is used correctly
+            color: markerColors[speciesName],
         };
 
         console.log("Attempting to add marker data:", markerData);
