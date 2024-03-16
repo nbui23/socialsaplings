@@ -1,4 +1,5 @@
 let userData = null;
+let userIdToUsernameMap = {};
 
 // Utility function to create a post element
 function createPostElement(post) {
@@ -10,6 +11,7 @@ function createPostElement(post) {
 
     postElement.innerHTML = `
         <h2>${post.title}</h2>
+        <p>By: ${userIdToUsernameMap[post.user]}</p>
         <img src="${post.image}" alt="${post.title}" style="max-width: 100%;">
         <p>${post.textBody}</p>
         <button class="like-btn" data-liked="${likedByUser}" data-postid="${post.postId}">
@@ -46,7 +48,7 @@ function createPostElement(post) {
         commentsToggle.textContent = isDisplayed ? 'Show Comments' : 'Hide Comments';
         // Populate comments if not already displayed
         if (!isDisplayed) {
-            commentsSection.innerHTML = post.comments.map(comment => `<p>${comment.user}: ${comment.comment}</p>`).join('');
+            commentsSection.innerHTML = post.comments.map(comment => `<p>${userIdToUsernameMap[comment.user]}: ${comment.comment}</p>`).join('');
         }
     });
 
@@ -65,7 +67,6 @@ function createPostElement(post) {
 
     return postElement;
 }
-
 
 // Function to render posts in the DOM
 function renderPosts(posts) {
@@ -113,10 +114,10 @@ function fetchUserData() {
     const idToken = localStorage.getItem('idToken');
     if (!idToken) {
         window.location.href = '/signin';
-        return;
+        return Promise.reject('No idToken found');
     }
 
-    fetch('/api/user-data', {
+    return fetch('/api/user-data', {
         headers: {
             'Authorization': `Bearer ${idToken}`
         }
@@ -130,18 +131,23 @@ function fetchUserData() {
     .then(data => {
         userData = data;
         console.log("User data fetched successfully:", data);
+        return data; // Make sure to return data for further chaining if needed
     })
     .catch(error => {
         console.error('Error:', error);
+        throw error; // Ensure the error is propagated
     });
 }
 
-// DOMContentLoaded listener to ensure the DOM is fully loaded before executing
 document.addEventListener('DOMContentLoaded', function() {
-    fetchUserData();
-    displayPosts();
+    fetchUserData()
+    .then(() => fetchAllUsers())
+    .then(() => {
+        displayPosts(); // Call displayPosts only after userData and userIdToUsernameMap are set
+    }).catch(error => {
+        console.error('Initialization error:', error);
+    });
 });
-
 
 function returnArray(){
 
@@ -159,7 +165,7 @@ function addComment(postId, comment, commentsSection) {
     .then(data => {
         if (data.success) {
             const newCommentElement = document.createElement('p');
-            newCommentElement.textContent = `${comment.user}: ${comment.comment}`;
+            newCommentElement.textContent = `${userIdToUsernameMap[comment.user]}: ${comment.comment}`;
             commentsSection.appendChild(newCommentElement);
             commentsSection.style.display = 'block';
         }
@@ -214,6 +220,29 @@ function unlikePost(postId, likeButton, likesCounter) {
         likeButton.setAttribute('data-liked', 'false');
     })
     .catch(error => console.error('Error unliking post:', error));
+}
+
+function fetchAllUsers() {
+    return new Promise((resolve, reject) => {
+        fetch('/api/users/')
+            .then(response => {
+                if (!response.ok) throw new Error('Failed to fetch users');
+                return response.json();
+            })
+            .then(usersList => {
+                // Create a mapping of user IDs to usernames
+                userIdToUsernameMap = usersList.reduce((acc, user) => {
+                    acc[user.id] = user.username; // Use 'id' field as key
+                    return acc;
+                }, {});
+                console.log('User ID to Username Map:', userIdToUsernameMap);
+                resolve(userIdToUsernameMap);
+            })
+            .catch(error => {
+                console.error('Error fetching users:', error);
+                reject(error);
+            });
+    });
 }
 
 function editPost(){

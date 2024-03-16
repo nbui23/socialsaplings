@@ -1,6 +1,6 @@
 import express from 'express';
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, getDocs, addDoc, getDoc, doc, setDoc } from 'firebase/firestore'; 
+import { getFirestore, collection, getDocs, addDoc, getDoc, doc, setDoc } from 'firebase/firestore';
 
 const firebaseConfig = {
     apiKey: "AIzaSyCxuxa5bFTXVYF_NRH9HrRV_mebUzQ05OM",
@@ -41,15 +41,14 @@ router.get('/', async (req, res) => {
     try {
         const postsCollection = collection(db, 'posts');
         const postsDocs = await getDocs(postsCollection);
-       
 
-        const postsList = postsDocs.docs.map(doc => ({postId: doc.id, ...doc.data()}));
+
+        const postsList = postsDocs.docs.map(doc => ({ postId: doc.id, ...doc.data() }));
         res.json(postsList);
-    } catch
-    (error) {
+    } catch (error) {
         console.error("Error fetching posts: ", error);
         res.status(500).send(error);
-    }    
+    }
 });
 
 // router.get('/:id', async (req, res) => {
@@ -96,12 +95,12 @@ router.patch("/addComment", async (req, res) => {
         //         comment: "comment"
         //     }
         //}
-        
-        const { postId, comment} = req.body;
+
+        const { postId, comment } = req.body;
 
         const postsCollection = collection(db, 'posts');
         const postDoc = await getDoc(doc(postsCollection, postId));
-        
+
         const post = postDoc.data();
         post.comments.push(comment);
         await setDoc(postDoc.ref, post);
