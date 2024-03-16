@@ -40,7 +40,8 @@ async function getTreeSpecies() {
 
 // Endpoint to receive geolocation data
 router.post('/geolocation', (req, res) => {
-    const { lat, lon } = req.body;
+    const lat = req.body.latitude;
+    const lon = req.body.longitude;
 
     if (lat && lon) {
         console.log(`Received geolocation data: lat ${lat}, lon ${lon}`);
@@ -134,12 +135,13 @@ async function matchTreesToConditions(soilClass, climateClass, topographyClass, 
 }
 
 router.post('/', async (req, res) => {
-    const { lat, lon } = req.body;
+    const lat = req.body.latitude;
+    const lon = req.body.longitude;
 
     if (!lat || !lon) {
         return res.status(400).json({
             success: false,
-            message: 'Both lat and lon are required.'
+            message: 'Both lat and lon are required. HERE'
         });
     }
 
@@ -159,7 +161,7 @@ router.post('/', async (req, res) => {
         res.json({
             success: true,
             message: 'Tree recommendation generated successfully.',
-            treeRecommendation
+            treeRecommendation: treeRecommendation
         });
     } catch (error) {
         console.error('Error:', error);
