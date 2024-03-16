@@ -28,5 +28,5 @@ document.getElementById('signin-form').addEventListener('submit', (e) => {
 });
 
 document.getElementById('signup').addEventListener('click', () => {
-    window.location.href = '/signup';
+    window.location.href = '../signup/signup.html';
 });
